@@ -60,6 +60,7 @@ end
     notifies :restart, 'service[postfix]'
     variables(settings: node['postfix'][cfg])
     cookbook node['postfix']["#{cfg}_template_source"]
+    not_if { ::File.exists?(File.join(node['postfix']['conf_dir'], "#{cfg}.cf")) }
   end
 end
 
